@@ -1,25 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react"
+import { Title } from "./components/Title"
+import { SearchForm } from "./components/SearchForm"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import "./App.css"
+import "bulma/css/bulma.css"
+import { Movie } from "./components/Movie"
+
+class App extends Component {
+  state = { results: [] };
+
+  _handleResults = (results) => {
+    this.setState({ results })
+  }
+
+  _renderResults() {
+    const { results } = this.state
+    return results.map(movie => {
+      return (
+        <Movie
+          key={movie.imdbID}
+          title={movie.Title}
+          year={movie.Year}
+          poster={movie.Poster}
+          />
+       )
+    })
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <Title>Buscador de Peliculas</Title>
+        <div className="SearchForm-wrapper">
+          <SearchForm onResults={this._handleResults} />
+        </div>
+
+        {this.state.results.length === 0
+          ? <p>Sin Resultados</p>
+          : this._renderResults()
+        }
+      </div>
+    );
+  }
 }
 
-export default App;
+export default App
