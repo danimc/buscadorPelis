@@ -6,6 +6,7 @@ import { MovieList } from "./components/MoviesList"
 
 import "./App.css"
 import "bulma/css/bulma.css"
+import { Detail } from "./pages/Detail"
 
 class App extends Component {
   state = { usedSearch: false, results: [] };
@@ -21,6 +22,13 @@ class App extends Component {
   }
 
   render() {
+    const url = new URL(document.location)
+    const hasId = url.searchParams.has('id')
+
+    if (hasId) {
+      return <Detail id={url.searchParams.get('id')} />
+    }
+
     return (
       <div className="App">
         <Title>Buscador de Pelis</Title>
