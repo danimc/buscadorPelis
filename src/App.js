@@ -1,10 +1,11 @@
 import React, { Component } from "react"
+
 import { Title } from "./components/Title"
 import { SearchForm } from "./components/SearchForm"
+import { MovieList } from "./components/MoviesList"
 
 import "./App.css"
 import "bulma/css/bulma.css"
-import { Movie } from "./components/Movie"
 
 class App extends Component {
   state = { results: [] };
@@ -13,31 +14,17 @@ class App extends Component {
     this.setState({ results })
   }
 
-  _renderResults() {
-    const { results } = this.state
-    return results.map(movie => {
-      return (
-        <Movie
-          key={movie.imdbID}
-          title={movie.Title}
-          year={movie.Year}
-          poster={movie.Poster}
-          />
-       )
-    })
-  }
-
   render() {
     return (
       <div className="App">
-        <Title>Buscador de Peliculas</Title>
+        <Title>Buscador de Pelis</Title>
         <div className="SearchForm-wrapper">
           <SearchForm onResults={this._handleResults} />
         </div>
 
         {this.state.results.length === 0
           ? <p>Sin Resultados</p>
-          : this._renderResults()
+          : <MovieList movies={this.state.results} />
         }
       </div>
     );
