@@ -37,7 +37,7 @@ export class Detail extends Component {
            <div>
                <button onClick={this._goBack}> Volver </button>
                <h1>{Title}</h1>
-               <img src={Poster} />
+               <img src={Poster} alt={Title} />
                <h3>{Actors}</h3>
                <span>{Metascore}</span>
                <p>{Plot}</p>
